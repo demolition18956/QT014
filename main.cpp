@@ -1,6 +1,7 @@
-// Graphics Example 2
+// Graphics Example 6
 
 #include <QApplication>
+#include <QtDebug>
 #include <QPainter>
 #include <QPixmap>
 #include <QPen>
@@ -9,18 +10,18 @@
 #include <QPoint>
 #include <QLabel>
 
-	// Goal: Draw two "spaceships"
-	// using rotation
+	// Goal: Save and load
+	// .jpg into pixmap
 
 int main(int argc, char* argv[])
 
 {
 	QApplication myApp(argc, argv);				
 	
-	QPixmap myMap(400,300);								// Establish 400 x 300 pixmap
-	myMap.fill(Qt::black);								// Makes sure background is black
+	QPixmap yourMap(400,300);								// Establish 400 x 300 pixmap
+	yourMap.fill(Qt::black);								// Makes sure background is black
 	
-	QPainter p(&myMap);									// QPainter class attached to QPixmap
+	QPainter p(&yourMap);									// QPainter class attached to QPixmap
 	p.setRenderHint(QPainter::Antialiasing, true);		// Enable antialiasing
 	
 	// Draw red arrow polygon
@@ -32,10 +33,16 @@ int main(int argc, char* argv[])
 	 					 QPoint(185, 175) };/* Bottom Left */
 	p.drawPolygon(points, 4);
 	
-	// Apply scaling and redraw polygon as green
-	p.scale(0.5, 0.5);
-	p.setPen(QPen(Qt::green, 2, Qt::SolidLine, Qt::FlatCap));
-	p.drawPolygon(points, 4);
+	// Save Pixmap as jpg
+	// 0 = determine image format by looking at filename; -1 = default image quality
+	if (!yourMap.save("arrow.jpg",0,-1))
+		qDebug() << "Error - unable to save pixmap";
+		
+	// Load jpeg image from file
+	QPixmap myMap;
+	
+	if (!myMap.load("arrow.jpg", 0, Qt::AutoColor))
+		qDebug() << "Error - unable to load pixmap";
 	
 	// Create QLabel and set Pixmap into QLabel
 	QLabel myLabel;
