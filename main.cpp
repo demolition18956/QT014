@@ -7,12 +7,9 @@
 #include <QBrush>
 #include <QRect>
 #include <QPoint>
-#include <QLine>
-#include <QFont>
 #include <QLabel>
 
-	// Goal: Draw a sniper crosshair along
-	// with the word "Fire"
+	// Goal: Draw two "spaceships"
 
 int main(int argc, char* argv[])
 
@@ -25,39 +22,19 @@ int main(int argc, char* argv[])
 	QPainter p(&myMap);									// QPainter class attached to QPixmap
 	p.setRenderHint(QPainter::Antialiasing, true);		// Enable antialiasing
 	
-	// Draw four points and two crosshair lines
-	p.setPen(QPen(Qt::red, 10, Qt::SolidLine, Qt::FlatCap));
-	QPoint p1(200,25);			// West
-	QPoint p2(200,275);			// East
-	QPoint p3(50, 150);			// North
-	QPoint p4(350, 150);		// South
-	p.drawPoint(p1);
-	p.drawPoint(p2);
-	p.drawPoint(p3);
-	p.drawPoint(p4);
-	p.setPen(QPen(Qt::white, 5, Qt::SolidLine, Qt::FlatCap));
-	QLine line1(p1, p2);
-	QLine line2(p3, p4);
-	p.drawLine(line1);
-	p.drawLine(line2);
+	// Draw red arrow polygon
+	p.setPen(QPen(Qt::red, 2, Qt::SolidLine, Qt::FlatCap));
+	p.setBrush(QBrush(Qt::SolidPattern));
+	QPoint points[4] = { QPoint(200,100),	/* Top Middle */
+	 					 QPoint(215,175),	/* Bottom Right */ 
+	 					 QPoint(200, 150),	/* Bottom Middle */
+	 					 QPoint(185, 175) };/* Bottom Left */
+	p.drawPolygon(points, 4);
 	
-	// Define Bounding Rectangle, set pen, and draw ellipse
-	p.setPen(QPen(Qt::blue, 5, Qt::SolidLine, Qt::SquareCap));
-	QRect rect1(125,75,150,150);						// 150 x 150 circle at (125,75)
-	p.drawEllipse(rect1);
-	
-	// Write text
-	p.setPen(Qt::red);
-	QPoint tp(300,175);
-	p.drawText(tp, "Fire");
-	
-	// Draw arcs --- angles are 1/16 of a degree, hence the scale factor
-	p.setPen(Qt::green);
-	p.drawArc(QRect(100, 50, 200, 200), 00*16, 90*16);	// Rectangle defines ellipse
-	p.drawArc(QRect(100, 50, 200, 200), 180*16, 90*16);	// second arg is start angle
-	p.drawArc(QRect(100, 50, 200, 200), 120*16, 30*16);	// third arg is span size of angle
-	p.drawArc(QRect(100, 50, 200, 200), 300*16, 30*16);
-	
+	// Apply translation and redraw polygon as green
+	p.translate(75,50);
+	p.setPen(QPen(Qt::green, 2, Qt::SolidLine, Qt::FlatCap));
+	p.drawPolygon(points, 4);
 	
 	// Create QLabel and set Pixmap into QLabel
 	QLabel myLabel;
