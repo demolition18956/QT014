@@ -1,48 +1,41 @@
-// Graphics Example 6
+// Graphics Example 7
 
 #include <QApplication>
-#include <QtDebug>
 #include <QPainter>
 #include <QPixmap>
 #include <QPen>
 #include <QBrush>
 #include <QRect>
 #include <QPoint>
+#include <QLine>
+#include <QFont>
 #include <QLabel>
 
-	// Goal: Save and load
-	// .jpg into pixmap
 
 int main(int argc, char* argv[])
 
 {
 	QApplication myApp(argc, argv);				
 	
-	QPixmap yourMap(400,300);								// Establish 400 x 300 pixmap
-	yourMap.fill(Qt::black);								// Makes sure background is black
+	QPixmap myMap(400,300);								// Establish 400 x 300 pixmap
+	myMap.fill(Qt::black);								// Makes sure background is black
 	
-	QPainter p(&yourMap);									// QPainter class attached to QPixmap
+	QPainter p(&myMap);									// QPainter class attached to QPixmap
 	p.setRenderHint(QPainter::Antialiasing, true);		// Enable antialiasing
-	
+	p.setWindow(-50, -50, 100, 100);					// Define Logical coordinate window
+	// Logical (-50, -50) corresponds to physical (0, 0) and scales 400 x 300 to 100 x 100
 	// Draw red arrow polygon
 	p.setPen(QPen(Qt::red, 2, Qt::SolidLine, Qt::FlatCap));
 	p.setBrush(QBrush(Qt::SolidPattern));
-	QPoint points[4] = { QPoint(200,100),	/* Top Middle */
-	 					 QPoint(215,175),	/* Bottom Right */ 
-	 					 QPoint(200, 150),	/* Bottom Middle */
-	 					 QPoint(185, 175) };/* Bottom Left */
+	QPoint points[4] = { QPoint(0,25),		/* Top Middle */
+	 					 QPoint(15,-25),	/* Bottom Right */ 
+	 					 QPoint(0, 0),		/* Bottom Middle */
+	 					 QPoint(-15, -25) };/* Bottom Left */
 	p.drawPolygon(points, 4);
 	
-	// Save Pixmap as jpg
-	// 0 = determine image format by looking at filename; -1 = default image quality
-	if (!yourMap.save("arrow.jpg",0,-1))
-		qDebug() << "Error - unable to save pixmap";
-		
-	// Load jpeg image from file
-	QPixmap myMap;
-	
-	if (!myMap.load("arrow.jpg", 0, Qt::AutoColor))
-		qDebug() << "Error - unable to load pixmap";
+	p.translate(15,-25);
+	p.setPen(QPen(Qt::green, 2, Qt::SolidLine, Qt::FlatCap));
+	p.drawPolygon(points, 4);
 	
 	// Create QLabel and set Pixmap into QLabel
 	QLabel myLabel;
