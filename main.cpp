@@ -1,4 +1,4 @@
-// Graphics Example 2
+// Graphics Example 5
 
 #include <QApplication>
 #include <QPainter>
@@ -10,7 +10,7 @@
 #include <QLabel>
 
 	// Goal: Draw two "spaceships"
-	// using rotation
+	// using scaling
 
 int main(int argc, char* argv[])
 
