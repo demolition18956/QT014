@@ -10,6 +10,7 @@
 #include <QLabel>
 
 	// Goal: Draw two "spaceships"
+	// using rotation
 
 int main(int argc, char* argv[])
 
@@ -31,8 +32,8 @@ int main(int argc, char* argv[])
 	 					 QPoint(185, 175) };/* Bottom Left */
 	p.drawPolygon(points, 4);
 	
-	// Apply translation and redraw polygon as green
-	p.translate(75,50);
+	// Apply rotation and redraw polygon as green
+	p.rotate(30);
 	p.setPen(QPen(Qt::green, 2, Qt::SolidLine, Qt::FlatCap));
 	p.drawPolygon(points, 4);
 	
