@@ -32,8 +32,8 @@ int main(int argc, char* argv[])
 	 					 QPoint(185, 175) };/* Bottom Left */
 	p.drawPolygon(points, 4);
 	
-	// Apply rotation and redraw polygon as green
-	p.rotate(30);
+	// Apply scaling and redraw polygon as green
+	p.scale(0.5, 0.5);
 	p.setPen(QPen(Qt::green, 2, Qt::SolidLine, Qt::FlatCap));
 	p.drawPolygon(points, 4);
 	
