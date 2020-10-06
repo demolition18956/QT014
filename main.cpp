@@ -1,4 +1,4 @@
-// Graphics Example 7
+// Graphics Example 8
 
 #include <QApplication>
 #include <QPainter>
@@ -33,7 +33,8 @@ int main(int argc, char* argv[])
 	 					 QPoint(-15, -25) };/* Bottom Left */
 	p.drawPolygon(points, 4);
 	
-	p.translate(15,-25);
+	// Rotate 45 degrees and redraw polygon
+	p.rotate(45.0);										// Rotate from logical center
 	p.setPen(QPen(Qt::green, 2, Qt::SolidLine, Qt::FlatCap));
 	p.drawPolygon(points, 4);
 	
